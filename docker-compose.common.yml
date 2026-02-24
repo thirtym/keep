@@ -2,7 +2,7 @@ services:
   keep-frontend-common:
     user: root
     environment:
-      - AUTH_TYPE=OAUTH2PROXY
+      - AUTH_TYPE=REVERSE_PROXY
       - NEXTAUTH_SECRET=secret
       - NEXTAUTH_URL=https://keep.systems30.com
       - NEXT_PUBLIC_API_URL=https://keepapi.systems30.com
@@ -14,7 +14,7 @@ services:
     user: root
     environment:
       - KEEP_API_URL=https://keepapi.systems30.com
-      - AUTH_TYPE=OAUTH2PROXY
+      - AUTH_TYPE=REVERSE_PROXY
       - PORT=8080
       - SECRET_MANAGER_TYPE=FILE
       - SECRET_MANAGER_DIRECTORY=/state
