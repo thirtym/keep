@@ -1,7 +1,5 @@
 services:
   keep-frontend-common:
-    ports:
-      - "3000:3000"
     environment:
       - NEXTAUTH_SECRET=secret
       - NEXTAUTH_URL=http://localhost:3000
@@ -14,8 +12,6 @@ services:
       - PUSHER_APP_KEY=keepappkey
 
   keep-backend-common:
-    ports:
-      - "8080:8080"
     environment:
       - PORT=8080
       - SECRET_MANAGER_TYPE=FILE
@@ -31,9 +27,6 @@ services:
 
   keep-websocket-server-common:
     image: quay.io/soketi/soketi:1.4-16-debian
-    ports:
-      - "6001:6001"
-      - "9601:9601"
     environment:
       - SOKETI_USER_AUTHENTICATION_TIMEOUT=3000
       - SOKETI_DEBUG=1
