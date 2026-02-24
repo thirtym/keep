@@ -13,6 +13,7 @@ services:
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - NEXTAUTH_SECRET=${OAUTH2_COOKIE_SECRET}
+      - KEEP_JWT_SECRET=${OAUTH2_COOKIE_SECRET}
       - ALLOWED_DOMAINS=30m.com
     volumes:
       - ./state:/state
@@ -26,6 +27,7 @@ services:
     image: us-central1-docker.pkg.dev/keephq/keep/keep-api
     environment:
       - AUTH_TYPE=SINGLE_TENANT
+      - KEEP_JWT_SECRET=${OAUTH2_COOKIE_SECRET}
       - PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
       - KEEP_METRICS=true
     volumes:
