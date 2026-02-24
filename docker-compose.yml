@@ -11,6 +11,11 @@ services:
       - ./state:/state
     depends_on:
       - keep-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   keep-backend:
     extends:
@@ -33,7 +38,8 @@ services:
       file: docker-compose.common.yml
       service: keep-auth-proxy-common
     depends_on:
-      - keep-frontend
+      keep-frontend:
+        condition: service_healthy
 
   grafana:
     image: grafana/grafana:latest
