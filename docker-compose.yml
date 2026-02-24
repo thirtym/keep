@@ -25,7 +25,7 @@ services:
       service: keep-backend-common
     image: us-central1-docker.pkg.dev/keephq/keep/keep-api
     environment:
-      - AUTH_TYPE=noauth
+      - AUTH_TYPE=SINGLE_TENANT
       - PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
       - KEEP_METRICS=true
     volumes:
@@ -43,7 +43,7 @@ services:
     ports:
       - "3001:3000"
     volumes:
-      - ./grafana:/var/lib/grafana
+      - ./var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/grafana/dashboards
     environment:
