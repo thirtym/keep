@@ -8,12 +8,14 @@ services:
       - AUTH_TYPE=OAUTH2
       - NEXT_PUBLIC_AUTH_TYPE=OAUTH2
       - NEXTAUTH_URL=https://keep.systems30.com
+      - NEXTAUTH_SECRET=${OAUTH2_COOKIE_SECRET}
+      - KEEP_JWT_SECRET=${OAUTH2_COOKIE_SECRET}
+      # Providing all variants to fix the "undefined" URL logs
       - API_URL=https://keepapi.systems30.com
+      - KEEP_API_URL=https://keepapi.systems30.com
       - NEXT_PUBLIC_KEEP_API_URL=https://keepapi.systems30.com
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
-      - NEXTAUTH_SECRET=${OAUTH2_COOKIE_SECRET}
-      - KEEP_JWT_SECRET=${OAUTH2_COOKIE_SECRET}
       - ALLOWED_DOMAINS=30m.com
     volumes:
       - ./state:/state
@@ -28,6 +30,8 @@ services:
     environment:
       - AUTH_TYPE=SINGLE_TENANT
       - KEEP_JWT_SECRET=${OAUTH2_COOKIE_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
       - KEEP_METRICS=true
     volumes:
@@ -45,7 +49,7 @@ services:
     ports:
       - "3001:3000"
     volumes:
-      - ./var/lib/grafana
+      - ./grafana:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/grafana/dashboards
     environment:
