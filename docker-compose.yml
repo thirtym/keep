@@ -8,6 +8,7 @@ services:
       - AUTH_TYPE=OAUTH2
       - NEXT_PUBLIC_AUTH_TYPE=OAUTH2
       - NEXTAUTH_URL=https://keep.systems30.com
+      - API_URL=https://keepapi.systems30.com
       - NEXT_PUBLIC_KEEP_API_URL=https://keepapi.systems30.com
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
