@@ -24,9 +24,7 @@ services:
       service: keep-backend-common
     image: us-central1-docker.pkg.dev/keephq/keep/keep-api
     environment:
-      - AUTH_TYPE=DATABASE
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - AUTH_TYPE=noauth
       - PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
       - KEEP_METRICS=true
     volumes:
