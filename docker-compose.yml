@@ -5,18 +5,9 @@ services:
       service: keep-frontend-common
     image: us-central1-docker.pkg.dev/keephq/keep/keep-ui
     environment:
-      - AUTH_TYPE=OAUTH2
-      - NEXT_PUBLIC_AUTH_TYPE=OAUTH2
-      - NEXTAUTH_URL=https://keep.systems30.com
-      - NEXTAUTH_SECRET=${OAUTH2_COOKIE_SECRET}
-      - KEEP_JWT_SECRET=${OAUTH2_COOKIE_SECRET}
-      # Providing all variants to fix the "undefined" URL logs
-      - API_URL=https://keepapi.systems30.com
-      - KEEP_API_URL=https://keepapi.systems30.com
+      - AUTH_TYPE=REVERSE_PROXY
+      - API_URL=http://keep-backend:8080
       - NEXT_PUBLIC_KEEP_API_URL=https://keepapi.systems30.com
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
-      - ALLOWED_DOMAINS=30m.com
     volumes:
       - ./state:/state
     depends_on:
@@ -28,10 +19,8 @@ services:
       service: keep-backend-common
     image: us-central1-docker.pkg.dev/keephq/keep/keep-api
     environment:
-      - AUTH_TYPE=SINGLE_TENANT
+      - AUTH_TYPE=REVERSE_PROXY
       - KEEP_JWT_SECRET=${OAUTH2_COOKIE_SECRET}
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
       - KEEP_METRICS=true
     volumes:
@@ -41,6 +30,15 @@ services:
     extends:
       file: docker-compose.common.yml
       service: keep-websocket-server-common
+
+  keep-auth-proxy:
+    extends:
+      file: docker-compose.common.yml
+      service: keep-auth-proxy-common
+    ports:
+      - "4180:4180"
+    depends_on:
+      - keep-frontend
 
   grafana:
     image: grafana/grafana:latest
