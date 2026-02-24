@@ -6,8 +6,10 @@ services:
     image: us-central1-docker.pkg.dev/keephq/keep/keep-ui
     environment:
       - AUTH_TYPE=REVERSE_PROXY
+      # Internal communication to the backend
       - API_URL=http://keep-backend:8080
-      - NEXT_PUBLIC_KEEP_API_URL=https://keepapi.systems30.com
+      - KEEP_API_URL=http://keep-backend:8080
+      - NEXT_PUBLIC_KEEP_API_URL=https://keep.systems30.com/api
     volumes:
       - ./state:/state
     depends_on:
@@ -19,7 +21,7 @@ services:
       service: keep-backend-common
     image: us-central1-docker.pkg.dev/keephq/keep/keep-api
     environment:
-      - AUTH_TYPE=MULTI_TENANT
+      - AUTH_TYPE=noauth
       - KEEP_JWT_SECRET=${OAUTH2_COOKIE_SECRET}
       - ALLOWED_ORIGINS=https://keep.systems30.com
       - PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
