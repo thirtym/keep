@@ -5,8 +5,7 @@ services:
       service: keep-frontend-common
     image: us-central1-docker.pkg.dev/keephq/keep/keep-ui
     environment:
-      - AUTH_TYPE=NO_AUTH
-      - API_URL=http://keep-backend:8080
+      - API_URL=https://keepapi.systems30.com
     volumes:
       - ./state:/state
     depends_on:
@@ -18,7 +17,6 @@ services:
       service: keep-backend-common
     image: us-central1-docker.pkg.dev/keephq/keep/keep-api
     environment:
-      - AUTH_TYPE=NO_AUTH
       - PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
       - KEEP_METRICS=true
     volumes:
@@ -28,6 +26,11 @@ services:
     extends:
       file: docker-compose.common.yml
       service: keep-websocket-server-common
+
+  keep-auth-proxy:
+    extends:
+      file: docker-compose.common.yml
+      service: keep-auth-proxy-common
 
   grafana:
     image: grafana/grafana:latest
