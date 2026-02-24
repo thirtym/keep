@@ -6,10 +6,12 @@ services:
     image: us-central1-docker.pkg.dev/keephq/keep/keep-ui
     environment:
       - API_URL=https://keepapi.systems30.com
+      - NEXT_PUBLIC_KEEP_API_URL=https://keepapi.systems30.com
     volumes:
       - ./state:/state
     depends_on:
       - keep-backend
+      - keep-auth-proxy
 
   keep-backend:
     extends:
@@ -31,6 +33,8 @@ services:
     extends:
       file: docker-compose.common.yml
       service: keep-auth-proxy-common
+    depends_on:
+      - keep-frontend
 
   grafana:
     image: grafana/grafana:latest
