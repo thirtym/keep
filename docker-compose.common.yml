@@ -2,8 +2,8 @@ services:
   keep-frontend-common:
     user: root
     environment:
-      - AUTH_TYPE=REVERSE_PROXY
-      - NEXT_PUBLIC_AUTH_TYPE=REVERSE_PROXY
+      - AUTH_TYPE=OAUTH2PROXY
+      - NEXT_PUBLIC_AUTH_TYPE=OAUTH2PROXY
       - NEXTAUTH_SECRET=secret
       - NEXTAUTH_URL=https://keep.systems30.com
       - KEEP_API_URL=http://keep-backend:8080
@@ -16,15 +16,13 @@ services:
     user: root
     environment:
       - KEEP_API_URL=http://keep-backend:8080
-      # Use "db" to enable the internal User Management UI
-      - AUTH_TYPE=db
+      - AUTH_TYPE=OAUTH2PROXY
       - PORT=8080
       - SECRET_MANAGER_TYPE=FILE
       - SECRET_MANAGER_DIRECTORY=/state
       - DATABASE_CONNECTION_STRING=sqlite:////state/db.sqlite3?check_same_thread=False
       - OPENAI_API_KEY=$OPENAI_API_KEY
-      # Maps the proxy identity to the internal database
-      - USER_HEADER=X-Forwarded-Email
+      - USER_HEADER=x-forwarded-email
       - PUSHER_APP_ID=1
       - PUSHER_APP_KEY=keepappkey
       - PUSHER_APP_SECRET=keepappsecret

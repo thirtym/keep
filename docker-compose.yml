@@ -6,6 +6,7 @@ services:
     image: us-central1-docker.pkg.dev/keephq/keep/keep-ui
     environment:
       - AUTH_TYPE=OAUTH2PROXY
+      - NEXT_PUBLIC_AUTH_TYPE=OAUTH2PROXY
       - KEEP_OAUTH2_PROXY_USER_HEADER=x-forwarded-email
       - KEEP_OAUTH2_PROXY_ROLE_HEADER=x-forwarded-groups
       - API_URL=http://keep-backend:8080
