@@ -16,7 +16,8 @@ services:
     user: root
     environment:
       - KEEP_API_URL=http://keep-backend:8080
-      - AUTH_TYPE=database
+      - AUTH_TYPE=SINGLE_TENANT
+      - IDENTITY_MANAGER_TYPE=database
       - PORT=8080
       - SECRET_MANAGER_TYPE=FILE
       - SECRET_MANAGER_DIRECTORY=/state
