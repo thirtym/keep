@@ -2,6 +2,7 @@ services:
   keep-frontend-common:
     user: root
     environment:
+      - AUTH_TRUST_HOST=true
       - AUTH_TYPE=OAUTH2PROXY
       - NEXT_PUBLIC_AUTH_TYPE=OAUTH2PROXY
       - NEXTAUTH_SECRET=secret
@@ -54,3 +55,6 @@ services:
       - OAUTH2_PROXY_PASS_USER_HEADERS=true
       - OAUTH2_PROXY_SET_XAUTHUSER=true
       - OAUTH2_PROXY_WHITELIST_DOMAINS=.systems30.com
+      - OAUTH2_PROXY_COOKIE_DOMAIN=.systems30.com
+      - OAUTH2_PROXY_COOKIE_SECURE=true
+      - OAUTH2_PROXY_COOKIE_SAMESITE=lax
