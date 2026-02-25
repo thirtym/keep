@@ -5,8 +5,9 @@ services:
       service: keep-frontend-common
     image: us-central1-docker.pkg.dev/keephq/keep/keep-ui
     environment:
-      - AUTH_TYPE=REVERSE_PROXY
-      - NEXT_PUBLIC_AUTH_TYPE=REVERSE_PROXY
+      - AUTH_TYPE=OAUTH2PROXY
+      - KEEP_OAUTH2_PROXY_USER_HEADER=x-forwarded-email
+      - KEEP_OAUTH2_PROXY_ROLE_HEADER=x-forwarded-groups
       - API_URL=http://keep-backend:8080
       - KEEP_API_URL=http://keep-backend:8080
       - NEXT_PUBLIC_KEEP_API_URL=https://keep.systems30.com/api
@@ -21,10 +22,11 @@ services:
       service: keep-backend-common
     image: us-central1-docker.pkg.dev/keephq/keep/keep-api
     environment:
-      - AUTH_TYPE=db
-      - KEEP_JWT_SECRET=${OAUTH2_COOKIE_SECRET}
+      - AUTH_TYPE=OAUTH2PROXY
+      - KEEP_OAUTH2_PROXY_USER_HEADER=x-forwarded-email
+      - KEEP_OAUTH2_PROXY_ROLE_HEADER=x-forwarded-groups
+      - KEEP_OAUTH2_PROXY_AUTO_CREATE_USER=true
       - ALLOWED_ORIGINS=https://keep.systems30.com
-      - USER_HEADER=X-Forwarded-Email
       - PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus
       - KEEP_METRICS=true
     volumes:
