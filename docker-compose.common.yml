@@ -5,8 +5,8 @@ services:
       - AUTH_TRUST_HOST=true
       - AUTH_TYPE=OAUTH2PROXY
       - NEXT_PUBLIC_AUTH_TYPE=OAUTH2PROXY
-      - KEEP_OAUTH2_PROXY_USER_HEADER=x-auth-request-email
-      - KEEP_OAUTH2_PROXY_ROLE_HEADER=x-auth-request-groups
+      - KEEP_OAUTH2_PROXY_USER_HEADER=x-forwarded-email
+      - KEEP_OAUTH2_PROXY_ROLE_HEADER=x-forwarded-email
       - NEXTAUTH_SECRET=secret
       - NEXTAUTH_URL=https://keep.systems30.com
       - API_URL=http://keep-backend:8080
@@ -21,10 +21,10 @@ services:
     environment:
       - KEEP_API_URL=http://keep-backend:8080
       - AUTH_TYPE=OAUTH2PROXY
-      - KEEP_OAUTH2_PROXY_USER_HEADER=x-auth-request-email
-      - KEEP_OAUTH2_PROXY_ROLE_HEADER=x-auth-request-groups
-      - USER_HEADER=x-auth-request-email
+      - KEEP_OAUTH2_PROXY_USER_HEADER=x-forwarded-email
+      - KEEP_OAUTH2_PROXY_ROLE_HEADER=x-forwarded-email
       - KEEP_OAUTH2_PROXY_AUTO_CREATE_USER=true
+      - KEEP_OAUTH2_PROXY_ADMIN_ROLES=miroslav.kosteckij@30m.com
       - PORT=8080
       - SECRET_MANAGER_TYPE=FILE
       - SECRET_MANAGER_DIRECTORY=/state
@@ -59,7 +59,6 @@ services:
       - OAUTH2_PROXY_REVERSE_PROXY=true
       - OAUTH2_PROXY_SKIP_PROVIDER_BUTTON=true
       - OAUTH2_PROXY_PASS_USER_HEADERS=true
-      - OAUTH2_PROXY_SET_XAUTHREQUEST=true
       - OAUTH2_PROXY_WHITELIST_DOMAINS=.systems30.com
       - OAUTH2_PROXY_COOKIE_DOMAIN=.systems30.com
       - OAUTH2_PROXY_COOKIE_SECURE=true
