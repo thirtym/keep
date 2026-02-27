@@ -21,6 +21,7 @@ services:
     environment:
       - KEEP_API_URL=http://keep-backend:8080
       - AUTH_TYPE=OAUTH2PROXY
+      - KEEP_API_KEY_AUTH_ENABLED=true
       - KEEP_OAUTH2_PROXY_USER_HEADER=x-forwarded-email
       - KEEP_OAUTH2_PROXY_ROLE_HEADER=x-forwarded-email
       - KEEP_OAUTH2_PROXY_AUTO_CREATE_USER=true
